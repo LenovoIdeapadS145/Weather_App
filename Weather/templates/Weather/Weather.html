@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Weather </title>
+        <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css">
+    </head>
+
+    <body style="background-color: cyan;"> 
+        <div class="Main stuff">
+            <h1 style="text-align: center; font-size: 50px; padding: 15px;"> Weather Latitude </h1>
+        </div>
+
+        <form method = "POST" style="text-align: center; font-size: 30px;">
+            <label for = "City Name"> 
+                City Name
+            </label>
+            <div class="column is-offset-4 is-4">
+                {% csrf_token %}
+                <div class="field has-addons">
+                    <div class="control is-expanded">
+                        {{form.name}}
+                    </div> 
+
+                    <button type="submit" style="font-size: small; height: 25px; padding: 2px;"> Add City </button>
+                </div>
+            </div>
+        </form>
+
+        <div class="container">
+            <div class="columns"> 
+                <div class="column is-offset-4 is-4">
+                    {% for City_Weather in Weather_Data %}
+                    <div class="box"> 
+                        <article class="media"> 
+                            <div class="media-left">
+                                <figure> 
+                                    <img src="http://openweathermap.org/img/w/{{City_Weather.Icon}}.png"> 
+                                </figure>
+                            </div>
+                            <div class="media-content"> 
+                                <div class="content"> 
+                                    <p> 
+                                        <span class="title"> 
+                                            {{City_Weather.City}}
+                                        </span><br><br>
+                                        <span class="subtitle">
+                                            {{City_Weather.Temperature}} ° C
+                                        </span><br><br>{{City_Weather.Description}}
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>
